@@ -3,12 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <title>会話プログラム</title>
-<script language="javascript">
-<!--
-function hyouji(){
-　　　　myform.myarea.value="あいて：こんにちは。";
+<style>
+textarea {
+    font-size: 15pt;
+    line-height: 31px;
+    padding: 31px;
+
+    /* テキストエリアに陰をつける */
+    box-shadow: 0.2em 0.2em 0.5em black;
+
+    /* 罫線描画（各ブラウザ対応）*/
+    background-image: -webkit-linear-gradient(left, white 10px, transparent 10px), -webkit-linear-gradient(right, white 10px, transparent 10px), -webkit-linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
+    background-image: -moz-linear-gradient(left, white 10px, transparent 10px), -moz-linear-gradient(right, white 10px, transparent 10px), -moz-linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
+    background-image: -ms-linear-gradient(left, white 10px, transparent 10px), -ms-linear-gradient(right, white 10px, transparent 10px), -ms-linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
+    background-image: -o-linear-gradient(left, white 10px, transparent 10px), -o-linear-gradient(right, white 10px, transparent 10px), -o-linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
+    background-image: linear-gradient(left, white 10px, transparent 10px), linear-gradient(right, white 10px, transparent 10px), linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
+    background-size: 100% 100%, 100% 100%, 100% 31px;
+    /* 淡いグレーで枠線を囲む */
+    border: 1px solid #ccc;
 }
-//-->
+</style>
+<script type="text/javascript">
+<!--
+var name = null;
+function dialog() {
+	var q = document.myform.myinput.value;
+	var a = "";
+	document.myform.myinput.value;
+	if(r=q.match(/^それは(.*)$/)) q=r[1];
+	if(!q) {
+		return false;
+	} else if(!name){
+		if(r = q.match(/^(私)(.*)$/)) q=r[3];
+		name=q; a='こんにちは'+ name +'さん';
+		}else if(q.match(/^(さよ.?なら|(good *)?bye)$/i)){
+		a='さよなら';
+		}else {
+		a=q+'って何？';
+		}
+		document.myform.mytextarea.value = a;
+		return false;
+		}
+	
+
 </script>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -20,15 +57,21 @@ function hyouji(){
 
 <article>
 
-<div class="wrapper">
-<div class="box">
+<div id="textarea">
+<div class="textinner">
 </div>
+<!--/textinner-->
+<div class="triangle"></div>
 </div>
+<!--/textarea-->
 <img src="hito.jpg" alt=""><br>
-<form name="myform">
-<textarea name="kaiwa" cols="80" rows="1"></textarea><br>
-<button type="button" name="aaa" value="aaa" onclick="hyouji()">
-<font size="2">入力</font>
+<form name="myform" action onsubmit="return dialog();">
+<p>
+<textarea name="mytextarea" cols="80" rows="1" disabled="disabled"></textarea>
+</p>
+<p>
+<input name="myinput" size="60">
+</p>
 </button>
 </form>
 </article>
