@@ -23,6 +23,7 @@ textarea {
     border: 1px solid #ccc;
 }
 </style>
+<script src="jquery-1.11.3.js"></script>
 <script type="text/javascript">
 <!--
 var name = null;
@@ -56,7 +57,26 @@ function dialog() {
 		document.myform.mytextarea.value = a;
 		return false;
 		}
-	
+		
+$(function() {
+	// Enterが押されたときの処理
+	$(".imagchang").keydown(function(e) {
+		if (e.which == 13) // key[Enter] 
+		{
+		var array = [
+		"uresii.png",
+		"kanasii.png",
+		"okoru.png",
+		];
+		
+		var l = array.length;
+    	var r = Math.floor(Math.random()*l);
+    	var imgurl = array[r];
+    	
+			$(".main").attr({"src":imgurl});
+		}
+	});
+});
 
 </script>
 <link rel="stylesheet" href="style.css">
@@ -64,10 +84,13 @@ function dialog() {
 <body>
 
 <header>
-<h1>会話プログラム</h1>
+<h1><span style="color: yellow">会話プログラム</span></h1>
 </header>
 
 <article>
+
+<img src="uresii.png" width="320" height="320" alt="" class="main">
+
 
 <div id="textarea">
 <div class="textinner">
@@ -76,14 +99,14 @@ function dialog() {
 <div class="triangle"></div>
 </div>
 <!--/textarea-->
-<img src="hito.jpg" alt=""><br>
 <form name="myform" action onsubmit="return dialog();">
 <p>
 <textarea name="mytextarea" cols="80" rows="1" disabled="disabled"></textarea>
 </p>
 <p>
-<input name="myinput" size="60">
+<input name="myinput" size="60" class="imagchang">
 </p>
+
 </button>
 </form>
 </article>
